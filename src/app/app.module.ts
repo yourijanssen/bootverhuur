@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeComponent } from './pages/home/home.component';
 
 /**
  * @author Youri Janssen //entire file
@@ -17,7 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
      * The declarations array lists the components that belong to this module.
      * These components are available for use within the AppModule.
      */
-    declarations: [AppComponent, RegisterComponent, PageNotFoundComponent],
+    declarations: [AppComponent, RegisterComponent, PageNotFoundComponent, HomeComponent],
     /** The imports array specifies the modules that this module depends on.*/
     imports: [
         BrowserModule,
