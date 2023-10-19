@@ -1,1 +1,10 @@
 /* Application-wide Styles */
+html {
+    background-color: #f8f8f8;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
+
+html {
+    font-family: 'Roboto', sans-serif;
+}

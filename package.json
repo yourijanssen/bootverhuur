@@ -10,7 +10,6 @@
     "lint": "ng lint",
     "format": "npx prettier src/**/*.{js,jsx,ts,tsx,html,css,scss} --write",
     "check": "npm run lint & npm run format"
-
   },
   "private": true,
   "dependencies": {
@@ -22,6 +21,9 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@fortawesome/angular-fontawesome": "^0.13.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
