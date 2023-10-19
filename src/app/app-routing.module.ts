@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { HomeComponent } from './pages/home/home.component';
 
 /**
  * @author Youri Janssen //entire file
@@ -10,9 +10,9 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
  */
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: AppComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'not-found', component: PageNotFoundComponent },    
+    { path: 'not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/not-found' } //Internal Note for Devs: Always keep this path on the bottom of the routes.
 ];
 
