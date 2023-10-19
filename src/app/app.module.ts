@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 /**
  * @author Youri Janssen //entire file
@@ -15,14 +17,15 @@ import { RegisterComponent } from './pages/register/register.component';
      * The declarations array lists the components that belong to this module.
      * These components are available for use within the AppModule.
      */
-    declarations: [AppComponent, RegisterComponent],
+    declarations: [AppComponent, RegisterComponent, PageNotFoundComponent],
     /** The imports array specifies the modules that this module depends on.*/
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FontAwesomeModule
     ],
     /** Providers array is where you could include service providers if needed. */
     providers: [],
