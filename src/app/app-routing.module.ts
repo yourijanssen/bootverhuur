@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { HomeComponent } from './pages/home/home.component';
 
 /**
- * @author Youri Janssen //entire file
+ * @author Youri Janssen, Thijs van Rixoort //entire file
  * Defines the routes for the application.
  */
 const routes: Routes = [

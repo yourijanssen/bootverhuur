@@ -26,17 +26,15 @@ h1 {
     text-align: center;
     font-size: xx-large;
     font-weight: 900;
-    color: white;
 }
 
-a {
+button {
     margin-inline: auto;
     
-    font-size: x-large;
+    font-size: xx-large;
     font-weight: 900;
-    color: white;
     text-decoration: none;
-
+    
     padding: 1.5rem;
     border-radius: 0.625rem;
 }
