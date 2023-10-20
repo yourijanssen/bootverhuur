@@ -31,3 +31,8 @@ button:active {
     transition-duration: 0s;    
     filter: brightness(0.75);
 }
+
+body {
+    margin: 0;
+    padding: 0;
+}

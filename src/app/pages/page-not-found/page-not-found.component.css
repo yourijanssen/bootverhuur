@@ -1,5 +1,5 @@
 .pageNotFoundComponent {
-    height: 87.5vh; /*This is a bullshit value, Get something dynamic*/
+    height: 80vh; /*This is a bullshit value, Get something dynamic*/
     position: relative;
     user-select: none;
 }
@@ -17,6 +17,7 @@
 .returnButton,
 .returnHomeButton {
     transition: filter 0.3s ease;
+    cursor: pointer;
 }
 
 .returnButton:hover,
@@ -27,7 +28,7 @@
 .pageNotFoundMessage {
     position: absolute;
     z-index: 1;
-    top: 6rem;
+    top: 5rem;
 
     font-size: 1.5rem;
     margin: 3em;
