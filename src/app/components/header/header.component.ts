@@ -18,7 +18,6 @@ import {
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
     /**
      * The @Input pageType is a simple object which accepts external changes and apply them directly upon the header
      * @var title is the string that shows as an optional title on the page
@@ -27,7 +26,12 @@ export class HeaderComponent {
      * @var colour is a string with the value of what colour to render.
      * @author Marcus K.
      */
-    @Input() pageType: { title?: string; biggerBanner?: boolean; search?: boolean; colour?: string } = {
+    @Input() pageType: {
+        title?: string;
+        biggerBanner?: boolean;
+        search?: boolean;
+        colour?: string;
+    } = {
         title: '',
         biggerBanner: false,
         search: false,
@@ -40,7 +44,7 @@ export class HeaderComponent {
      * @var lastName is a string representing a user's first name.
      * @author Marcus K.
      */
-    @Input() userData: { firstName: string; lastName: string; } = {
+    @Input() userData: { firstName: string; lastName: string } = {
         firstName: 'John',
         lastName: 'Doe'
     };
@@ -67,7 +71,7 @@ export class HeaderComponent {
     public loggedIn = true;
     public dropdownVisible = false;
 
-     /**
+    /**
      * @function dropdownToggle is an extremely simple function which flips the boolean of the dropdown's visibility
      * @author Marcus K.
      */
@@ -81,12 +85,12 @@ export class HeaderComponent {
      * @author Marcus K.
      */
     dropdownOff(clickEvent: Event): void {
-        if (
-            clickEvent.target !== this.userButton.nativeElement &&
-            clickEvent.target !== this.dropdown.nativeElement
-        ) {
-            this.dropdownVisible = false;
-        }
+        // if (
+        //     clickEvent.target !== this.userButton.nativeElement &&
+        //     clickEvent.target !== this.dropdown.nativeElement
+        // ) {
+        //     this.dropdownVisible = false;
+        // }
     }
 
     /**

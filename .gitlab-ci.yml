@@ -1,11 +1,11 @@
 stages:
-  - test
+  - lint
 
 lint:
   image: node:16
   tags:
     - hva
-  stage: test
+  stage: lint
   script:
     - npm install --force
     - npm run check

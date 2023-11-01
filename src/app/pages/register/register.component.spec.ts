@@ -41,7 +41,7 @@ describe('RegisterComponent', () => {
         component = fixture.componentInstance;
     });
 
-    it('should create', () => {
+    it('should create an instance of the RegisterComponent', () => {
         expect(component).toBeTruthy();
     });
 
