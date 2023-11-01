@@ -1,0 +1,23 @@
+<div>
+    <!-- Search input and button -->
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Enter boat name" />
+    <button (click)="searchBoats(searchTerm)">Search</button>
+</div>
+
+<!-- <h3>Search Results by Name</h3> -->
+<div class="boat-list">
+    <div *ngFor="let boat of searchedBoats" class="boat-item">
+        <div class="boat-name">{{ boat.name }}</div>
+        <div class="boat-price">
+            Price per day: {{ boat.price_per_day_in_cents }}
+        </div>
+        <div class="boat-capacity">Capacity: {{ boat.capacity }}</div>
+        <div class="boat-license">
+            License Required: {{ boat.license_required }}
+        </div>
+        <div class="boat-skipper">
+            Skipper Required: {{ boat.skipper_required }}
+        </div>
+        <div class="boat-facilities">Facilities: {{ boat.facilities }}</div>
+    </div>
+</div>

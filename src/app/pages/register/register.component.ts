@@ -5,7 +5,6 @@ import {
     FormGroup,
     Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { RegisterService } from 'src/app/services/register.service';
 
 /**
@@ -19,12 +18,15 @@ import { RegisterService } from 'src/app/services/register.service';
 })
 export class RegisterComponent {
     /** Indicates if the form contains invalid data. */
-    inValidForm = false;
+    invalidForm = false;
+
     /** Indicates if the form contains valid data. */
     validForm = false;
+
     /** Indicates if a form submit message should be displayed. */
     formSubmitMessage = false;
-    /** Indicates if an message should be displayed. */
+
+    /** Indicates if a message should be displayed. */
     errorOccuredMessage = false;
     userExistsError = false;
 
@@ -59,6 +61,7 @@ export class RegisterComponent {
     });
 
     /**
+     * @author Youri Janssen
      * Checks if a specific form control is invalid based on certain conditions.
      * @param {string} controlName - The name of the form control to check.
      * @returns {boolean} True if the form control is invalid and meets the specified conditions, otherwise false.
@@ -71,28 +74,34 @@ export class RegisterComponent {
             return false;
         }
         const isInvalid: boolean = control.invalid;
-        const formSubmitted: boolean = this.inValidForm;
+        const formSubmitted: boolean = this.invalidForm;
         return isInvalid && formSubmitted;
     }
 
     /**
+     * @author Youri Janssen
      * @function onSubmit Handles the submission of the sign-up form.
      * If the form is valid, it triggers the register service to post the new user data.
-     * If the form is invalid, it sets the `inValidForm` flag to true.
+     * If the form is invalid, it sets the `invalidForm` flag to true.
      */
     onSubmit(): void {
         // Reset the form status
-        this.inValidForm = false;
+        this.invalidForm = false;
         this.errorOccuredMessage = false;
+        this.validForm = false;
+        this.userExistsError = false;
 
+        // call the form validation
         if (!this.registerForm.valid) {
             this.userExistsError = false;
-            this.inValidForm = true;
+            this.invalidForm = true;
             return;
         }
 
+        // form submitted message
         this.formSubmitMessage = true;
 
+        //call the register service
         this.registerService.postNewUser(this.registerForm).subscribe({
             next: () => {
                 this.validForm = true;
