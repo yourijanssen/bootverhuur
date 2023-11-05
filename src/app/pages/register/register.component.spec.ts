@@ -13,12 +13,10 @@ describe('RegisterComponent', () => {
     let mockRouter: jasmine.SpyObj<Router>;
 
     beforeEach(() => {
-        // Create a mock service using jasmine.createSpyObj
         mockRegisterService = jasmine.createSpyObj('RegisterService', [
             'postNewUser'
         ]);
 
-        // Set up the spy to return values for postNewUser
         mockRegisterService.postNewUser.and.returnValue(
             of({
                 email: 'test@example.com',

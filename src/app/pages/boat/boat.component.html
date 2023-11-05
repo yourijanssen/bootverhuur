@@ -2,12 +2,12 @@
     <input type="text" [(ngModel)]="searchTerm" placeholder="Enter boat name" />
     <button (click)="searchBoats(searchTerm)">Search</button>
 </div>
-<h3 *ngIf="hasSearched === true && searchedBoats.length === 0">
-    Your search - {{ originalSearchTerm }} - did not match any boat names.
+<h3 *ngIf="hasSearched === true && searchResult.length === 0">
+    Your search - {{ previousSearchTerm }} - did not match any boat names.
 </h3>
 
 <div class="boat-list">
-    <div *ngFor="let boat of searchedBoats" class="boat-item">
+    <div *ngFor="let boat of searchResult" class="boat-item">
         <div class="boat-name">{{ boat.name }}</div>
         <div class="boat-price">
             Price per day: {{ boat.price_per_day_in_cents }}

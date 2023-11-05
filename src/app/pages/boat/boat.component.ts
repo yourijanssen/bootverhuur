@@ -14,10 +14,10 @@ import { BoatService } from 'src/app/services/boat.service';
 })
 export class BoatComponent implements OnInit {
     /** An array of Boat objects that match the search criteria. */
-    public searchedBoats: Boat[] = [];
+    public searchResult: Boat[] = [];
     public searchTerm = '';
     public hasSearched = false;
-    public originalSearchTerm = '';
+    public previousSearchTerm = '';
 
     /**
      * @author Youri Janssen
@@ -30,6 +30,10 @@ export class BoatComponent implements OnInit {
         private router: Router
     ) {}
 
+    /**
+     * @author Youri Janssen
+     * Angular lifecycle hook that is called after the component has been initialized.
+     */
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
             const searchTerm = params['q'];
@@ -41,43 +45,75 @@ export class BoatComponent implements OnInit {
 
     /**
      * @author Youri Janssen
-     * Searches for boats based on the provided name.
-     * @param searchTerm - The searchTerm of the boat to search for.
+     * Searches for boats based on the provided search term.
+     * @param {string} searchTerm - The searchTerm of the boat to search for.
      */
     searchBoats(searchTerm: string): void {
-        if (searchTerm.trim() === '') {
-            return; // Do nothing if the search term is empty or contains only white spaces
-        }
-        if (searchTerm.length > 150) {
-            alert('The boat name cannot contain more than 150 characters.');
+        if (this.isInvalidSearchTerm(searchTerm)) {
             return;
         }
-        this.boatService.searchBoats(searchTerm).subscribe(
-            data => {
-                this.searchedBoats = data;
-                this.router.navigate(['/boat'], {
-                    queryParams: { q: searchTerm }
-                });
-                this.hasSearched = true;
-                this.originalSearchTerm = searchTerm;
-            },
-            error => {
-                console.error('An error occurred:', error);
-            }
-        );
+
+        this.performBoatSearch(searchTerm);
     }
 
     /**
      * @author Youri Janssen
-     * Checks if the Boat names are returned in alphabetical order.
+     * Checks if the provided search term is valid.
+     * @param {string} searchTerm - The searchTerm to validate.
+     * @returns {boolean} A boolean value indicating whether the search term is invalid.
+     */
+    private isInvalidSearchTerm(searchTerm: string): boolean {
+        if (searchTerm.trim() === '') {
+            return true; // Do nothing if the search term is empty or contains only white spaces
+        }
+        if (searchTerm.length > 150) {
+            alert('The boat name cannot contain more than 150 characters.');
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @author Youri Janssen
+     * Performs a search for boats based on the provided search term.
+     * @param {string} searchTerm - The search term used for the boat search.
+     */
+    private performBoatSearch(searchTerm: string): void {
+        this.boatService.searchBoats(searchTerm).subscribe({
+            next: (searchResult: Boat[]) => {
+                this.searchResult = searchResult;
+                this.updateSearchResults(searchTerm);
+            },
+            error: (error: unknown) => {
+                console.error('An error occurred:', error);
+            }
+        });
+    }
+
+    /**
+     * @author Youri Janssen
+     * Updates the search results based on the provided search term.
+     * @param {string} searchTerm - The search term used for the update.
+     */
+    private updateSearchResults(searchTerm: string): void {
+        this.router.navigate(['/boat'], {
+            queryParams: { q: searchTerm }
+        });
+        this.hasSearched = true;
+        this.previousSearchTerm = searchTerm;
+    }
+
+    /**
+     * @author Youri Janssen
+     * Checks if the Boat names are returned in alphabetical order. (only used for testing purposes)
      * @returns A boolean value indicating whether the names are in alphabetical order.
      */
     checkAlphabeticalOrder(): boolean {
-        for (let i = 0; i < this.searchedBoats.length - 1; i++) {
+        for (let i = 0; i < this.searchResult.length - 1; i++) {
             // Check if the current element is greater than the next element
             if (
-                this.searchedBoats[i].name.localeCompare(
-                    this.searchedBoats[i + 1].name
+                this.searchResult[i].name.localeCompare(
+                    this.searchResult[i + 1].name
                 ) > 0
             ) {
                 // Return false if the current element is greater than the next element
