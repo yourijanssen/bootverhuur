@@ -55,7 +55,6 @@ export class BoatComponent implements OnInit {
         this.boatService.searchBoats(searchTerm).subscribe(
             data => {
                 this.searchedBoats = data;
-                this.checkAlphabeticalOrder();
                 this.router.navigate(['/boat'], {
                     queryParams: { q: searchTerm }
                 });

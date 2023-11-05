@@ -3,18 +3,31 @@ import { BoatComponent } from './boat.component';
 import { BoatService } from 'src/app/services/boat.service';
 import { of } from 'rxjs';
 import { Boat } from 'src/app/interfaces/boat';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('BoatComponent', () => {
     let component: BoatComponent;
     let fixture: ComponentFixture<BoatComponent>;
     let mockBoatService: jasmine.SpyObj<BoatService>;
+    let mockRouter: Router;
+    let mockActivatedRoute: ActivatedRoute;
 
     beforeEach(() => {
         mockBoatService = jasmine.createSpyObj('BoatService', ['searchBoats']);
+        mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+        mockActivatedRoute = jasmine.createSpyObj('ActivatedRoute', [
+            'queryParams'
+        ]);
+
+        mockActivatedRoute.queryParams = of({ q: 'boat' });
 
         TestBed.configureTestingModule({
             declarations: [BoatComponent],
-            providers: [{ provide: BoatService, useValue: mockBoatService }]
+            providers: [
+                { provide: BoatService, useValue: mockBoatService },
+                { provide: Router, useValue: mockRouter },
+                { provide: ActivatedRoute, useValue: mockActivatedRoute }
+            ]
         });
         fixture = TestBed.createComponent(BoatComponent);
         component = fixture.componentInstance;
