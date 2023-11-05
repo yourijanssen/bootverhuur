@@ -23,12 +23,12 @@ export class BoatService implements OnDestroy {
 
     /**
      * @author Youri Janssen
-     * Search boats by name.
-     * @param name - The name of the boat to search for.
+     * Search boats by searchTerm.
+     * @param searchTerm - The searchTerm of the boat to search for.
      * @returns An Observable of type Boat[] containing the search results.
      */
-    public searchBoats(name: string): Observable<Boat[]> {
-        const url = `${this.boatsUrl}/${name}`;
+    public searchBoats(searchTerm: string): Observable<Boat[]> {
+        const url = `${this.boatsUrl}/search?q=${searchTerm}`;
         return this.http.get<Boat[]>(url).pipe(
             catchError(error => {
                 throw error;

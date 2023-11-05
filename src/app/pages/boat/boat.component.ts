@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Boat } from 'src/app/interfaces/boat';
 import { BoatService } from 'src/app/services/boat.service';
 
@@ -11,17 +12,32 @@ import { BoatService } from 'src/app/services/boat.service';
     templateUrl: './boat.component.html',
     styleUrls: ['./boat.component.css']
 })
-export class BoatComponent {
+export class BoatComponent implements OnInit {
     /** An array of Boat objects that match the search criteria. */
     public searchedBoats: Boat[] = [];
     public searchTerm = '';
+    public hasSearched = false;
+    public originalSearchTerm = '';
 
     /**
      * @author Youri Janssen
      * Creates an instance of BoatComponent.
      * @param boatService - The BoatService used to search for boats.
      */
-    constructor(private boatService: BoatService) {}
+    constructor(
+        private boatService: BoatService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {}
+
+    ngOnInit(): void {
+        this.route.queryParams.subscribe(params => {
+            const searchTerm = params['q'];
+            if (searchTerm) {
+                this.searchBoats(searchTerm);
+            }
+        });
+    }
 
     /**
      * @author Youri Janssen
@@ -40,6 +56,11 @@ export class BoatComponent {
             data => {
                 this.searchedBoats = data;
                 this.checkAlphabeticalOrder();
+                this.router.navigate(['/boat'], {
+                    queryParams: { q: searchTerm }
+                });
+                this.hasSearched = true;
+                this.originalSearchTerm = searchTerm;
             },
             error => {
                 console.error('An error occurred:', error);
