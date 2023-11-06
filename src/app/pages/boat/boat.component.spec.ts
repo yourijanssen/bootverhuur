@@ -3,18 +3,31 @@ import { BoatComponent } from './boat.component';
 import { BoatService } from 'src/app/services/boat.service';
 import { of } from 'rxjs';
 import { Boat } from 'src/app/interfaces/boat';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('BoatComponent', () => {
     let component: BoatComponent;
     let fixture: ComponentFixture<BoatComponent>;
     let mockBoatService: jasmine.SpyObj<BoatService>;
+    let mockRouter: Router;
+    let mockActivatedRoute: ActivatedRoute;
 
     beforeEach(() => {
         mockBoatService = jasmine.createSpyObj('BoatService', ['searchBoats']);
+        mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+        mockActivatedRoute = jasmine.createSpyObj('ActivatedRoute', [
+            'queryParams'
+        ]);
+
+        mockActivatedRoute.queryParams = of({ q: 'boat' });
 
         TestBed.configureTestingModule({
             declarations: [BoatComponent],
-            providers: [{ provide: BoatService, useValue: mockBoatService }]
+            providers: [
+                { provide: BoatService, useValue: mockBoatService },
+                { provide: Router, useValue: mockRouter },
+                { provide: ActivatedRoute, useValue: mockActivatedRoute }
+            ]
         });
         fixture = TestBed.createComponent(BoatComponent);
         component = fixture.componentInstance;
@@ -52,7 +65,7 @@ describe('BoatComponent', () => {
             ] as Boat[])
         );
         component.searchBoats(component.searchTerm);
-        expect(component.searchedBoats.length).toBe(3);
+        expect(component.searchResult.length).toBe(3);
     });
 
     it('should not return search results for an empty search query', () => {
@@ -89,21 +102,21 @@ describe('BoatComponent', () => {
             ] as Boat[])
         );
         component.searchBoats(component.searchTerm);
-        expect(component.searchedBoats.length).toBe(3);
+        expect(component.searchResult.length).toBe(3);
     });
 
     it('should return search results for a search query with the maximum length of 150 characters', () => {
         component.searchTerm = 'q'.repeat(150);
         mockBoatService.searchBoats.and.returnValue(of([]));
         component.searchBoats(component.searchTerm);
-        expect(component.searchedBoats).toEqual([]);
+        expect(component.searchResult).toEqual([]);
     });
 
     it('should display an error message for a search query over the maximum length', () => {
         component.searchTerm = 'q'.repeat(151);
         component.searchBoats(component.searchTerm);
         expect(mockBoatService.searchBoats).not.toHaveBeenCalled();
-        expect(component.searchedBoats).toEqual([]);
+        expect(component.searchResult).toEqual([]);
     });
 
     it('should display search results in alphabetical order', () => {

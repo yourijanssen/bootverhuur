@@ -1,32 +1,42 @@
-input[type="text"] {
-  padding: 10px;
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 140px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  outline: none;
-  position: fixed;
+  position: absolute;
   top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-button {
+h3 {
+  color: black;
+  font-weight: normal;
+}
+
+.search-container input {
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 20px 0 0 20px;
+}
+
+.search-container button {
   padding: 10px 20px;
-  border-radius: 20px;
-  margin-top: 140px;
-  border: 1px solid #007BFF;
+  border: none;
   background-color: #007BFF;
   color: #fff;
   cursor: pointer;
   outline: none;
-  position: fixed;
-  top: 10%;
-  left: 60%;
-  transform: translate(-50%, -50%);
+  border-radius: 0 20px 20px 0;
 }
-button:hover {
+
+.search-container button:hover {
   background-color: #0056b3;
 }
+
 
 :host {
   display: flex;
