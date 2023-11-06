@@ -65,7 +65,7 @@ describe('BoatComponent', () => {
             ] as Boat[])
         );
         component.searchBoats(component.searchTerm);
-        expect(component.foundBoats.length).toBe(3);
+        expect(component.searchResult.length).toBe(3);
     });
 
     it('should not return search results for an empty search query', () => {
@@ -102,21 +102,21 @@ describe('BoatComponent', () => {
             ] as Boat[])
         );
         component.searchBoats(component.searchTerm);
-        expect(component.foundBoats.length).toBe(3);
+        expect(component.searchResult.length).toBe(3);
     });
 
     it('should return search results for a search query with the maximum length of 150 characters', () => {
         component.searchTerm = 'q'.repeat(150);
         mockBoatService.searchBoats.and.returnValue(of([]));
         component.searchBoats(component.searchTerm);
-        expect(component.foundBoats).toEqual([]);
+        expect(component.searchResult).toEqual([]);
     });
 
     it('should display an error message for a search query over the maximum length', () => {
         component.searchTerm = 'q'.repeat(151);
         component.searchBoats(component.searchTerm);
         expect(mockBoatService.searchBoats).not.toHaveBeenCalled();
-        expect(component.foundBoats).toEqual([]);
+        expect(component.searchResult).toEqual([]);
     });
 
     it('should display search results in alphabetical order', () => {
